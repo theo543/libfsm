@@ -20,7 +20,7 @@
 
 #include "vm.h"
 
-#include "print/ir.h"
+#include "../print/ir.h"
 
 // VM intermediate representation
 //

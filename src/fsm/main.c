@@ -29,6 +29,18 @@
 
 #include "wordgen.h"
 
+#if defined(__WIN32) || defined(__WIN32__) || defined(WIN32) || defined(_WIN32) || defined(_WIN64)
+#include <windows.h>
+int clock_gettime(int unused, struct timespec *spec) {
+   long long wintime;
+   GetSystemTimeAsFileTime((FILETIME*)&wintime);
+   wintime -= 116444736000000000LL; // convert FILETIME epoch to UNIX epoch
+   spec->tv_sec = wintime / 10000000LL; // seconds
+   spec->tv_nsec = wintime % 10000000LL * 100; // nano-seconds
+   return 0;
+}
+#endif
+
 #if defined(__APPLE__) && defined(__MACH__) && defined(MACOS_HAS_NO_CLOCK_GETITME)
 #include <mach/clock.h>
 #include <mach/mach.h>

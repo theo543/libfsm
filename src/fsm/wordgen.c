@@ -293,7 +293,7 @@ dfa_table_initialize(struct dfa_table *table, const struct fsm *fsm)
 	table->nstates = sg.nstates;
 	table->nedges  = eg.nedges;
 
-	start_state = fsm_getstart(fsm);
+	fsm_getstart(fsm, start_state);
 	for (i=0; i < sg.nstates; i++) {
 		if (sg.states[i] == start_state) {
 			table->start = i;
